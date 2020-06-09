@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
                             {
                                 temp = temp + test_c;
                             }
-                            else if (test_c != '=')
+                            else if ((test_c != '=') && (test_c != ' '))
                             {
                                 digit = atoi(temp.c_str());
                                 k++;
