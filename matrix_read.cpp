@@ -12,8 +12,8 @@ int main(int argc, char* argv[]) {
     string openfirst = result_name;
     //---
     int itisslau = 0;
-    // переменная - флаг , если она содержит 0 - то считынные данные - есть матрица
-    // инача считанные данные есть слау
+    // variable-flag, if it contains 0-then the read data is a matrix
+    // otherwise, the read data is Slough
     string test;
     char test_c;
     ifstream first(openfirst);
@@ -47,22 +47,22 @@ int main(int argc, char* argv[]) {
     }
     first.close();
 
-    // иф выполняется если наша фотка - есть матрица
+    // the condition "if" is met if our photo is a matrix
     string str;
     string temp = "";
     ifstream fin(filenamenew);
     double digit;
-    // числа в матрице
+    // digits in matrix
     vector <vector <double>> matrix;
-    // думерный вектор - наша матрица состоящая из чисел
+    // a two-dimensional vector is our matrix consisting of numbers
     vector <double> time;
-    // временный вектор, который поможет заполнить двумерный вектор
+    // a temporary vector that will help fill in a two-dimensional vector
     vector <char> name;
-    // cюда будем кидать имена перменных
+    // here we will throw the names of the variables
     int m = 0;
-    // число строк матрицы 
+    // number of rows in the matrix
     int n = 0;
-    // число стоблцов
+    // numbers of columns
     int k = 0;
 
     if (itisslau == 0)
@@ -97,7 +97,7 @@ int main(int argc, char* argv[]) {
                         {
                             digit = atoi(temp.c_str());
                             k++;
-                            // когда считали число , увелиичили столбцов на +1
+                            // when the number was counted, the columns were increased by +1
                             time.push_back(digit);
                             temp.clear();
                         }
@@ -117,23 +117,23 @@ int main(int argc, char* argv[]) {
             }
 
         }
-        cout << "Вы ввели матрицу" << endl;
-        cout << "Размеры матрицы: " << m << " строк и " << n << " столбцов" << endl;
+        cout << "You entered a matrix" << endl;
+        cout << "sizes of  matrix: " << m << " rows and " << n << " columns" << endl;
         print_matrix(matrix, m, n);
         matrix = step_matrix(matrix, m, n);
-        cout << " Ранг матрицы равен = " << rang_matrix(matrix, m, n) << endl;
+        cout << " rang of matrix is equal = " << rang_matrix(matrix, m, n) << endl;
         if (check_det(matrix, m, n) == 1)
         {
-            cout << "Определитель данной матрицы был посчитан, он равен  " << det_matrix(matrix, m, n);
+            cout << "determinant of this matrix was counted, one equal  " << det_matrix(matrix, m, n);
         }
         else
         {
-            cout << "Ошибка :( , нельзя посчитать определитель данной матрицы";
+            cout << "Mistake :( , impossible to count determinant of this matrix";
         }
     }
     else
         {
-            // елсе  выполняется если наша фотка - есть слау
+            // the condition is met if picture is system of lineal algebraic equations
             if (!fin.is_open())
             {
                 cout << "Error reading from file1";
@@ -159,11 +159,11 @@ int main(int argc, char* argv[]) {
                             {
                                 temp = temp + test_c;
                             }
-                            else if ((test_c != '=') && (test_c != ' '))
+                            else if (test_c != '=')
                             {
                                 digit = atoi(temp.c_str());
                                 k++;
-                                // когда считали число , увелиичили столбцов на +1
+                                // when the number was counted, the columns were increased by +1
                                 time.push_back(digit);
                                 temp.clear();
                                 if (isalpha(str[i]))
@@ -185,9 +185,9 @@ int main(int argc, char* argv[]) {
 
                     }
                 }
-                cout << "Вы ввели слау, результат считывания" << endl;
+                cout << "you entered a matrix, result is" << endl;
                 print_slau(matrix, name, m, n);
-                cout << "Решим данную систему методом Крамера" << endl;
+                cout << "we count up this SLAE by method of Kramer" << endl;
                 std::vector <double> solutions;
                 solutions = Kramer(matrix, name, m, n);
             }

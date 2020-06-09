@@ -8,9 +8,8 @@
 std::vector<std::vector<double>>
 swipe_column(std::vector<std::vector<double>> matrix, int m, int n, int k,
              int l) {
-  // ������� , ������������ ��������� ������, � ������� ���������� ������� k � l
-  // ��������� ��������� ������, ����� �����, ����� ��������, ������� k, �������
-  // l
+  // function return twodimensional vector with changed columns k and l 
+  // get 2-dimensional vector, numbers of rows, columns, column k and l
   for (int i = 0; i < m; i++) {
     std::swap(matrix[i][k], matrix[i][l]);
   }
@@ -19,18 +18,17 @@ swipe_column(std::vector<std::vector<double>> matrix, int m, int n, int k,
 
 std::vector<std::vector<double>>
 delete_last_column(std::vector<std::vector<double>> matrix, int m, int n) {
-  // ������� , ������������ ��������� ������, � ������� , ��� ������ ���������
-  // ������� ��������� ��������� ������, ����� ����� , ����� ��������
-  for (int i = 0; i < m; i++) {
+ // function return 2dimensional vector with deleted last column
+ //get matrix, numbers of rows and col
+ for (int i = 0; i < m; i++) {
     matrix.at(i).erase(matrix.at(i).begin() + n - 1);
   }
   return matrix;
 }
 void print_slau(const std::vector<std::vector<double>> &matrix, std::vector<char> name,
                 int m, int n) {
-  // ������� ���������� ����
-  // ��������� ��������� ������ ����� ,������ �������� ���������, ����� �����,
-  // ����� ��������
+  //function print system of lineal algebraic equations
+  //get matrix, vector of names of variables, numbers of rows and col 
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
       if (j < n - 2) {
@@ -48,8 +46,8 @@ void print_slau(const std::vector<std::vector<double>> &matrix, std::vector<char
 }
 
 void print_matrix(const std::vector<std::vector<double>> &matrix, int m, int n) {
-  // ������� ���������� ��������� ������
-  // ��������� - ��������� ������, ����� ����� ,����� ��������
+  // function prints matrix
+  // get matrix, numbers of rows and col
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
       std::cout << matrix[i][j] << "    ";
@@ -59,46 +57,43 @@ void print_matrix(const std::vector<std::vector<double>> &matrix, int m, int n) 
 }
 int find_nozero(const std::vector<std::vector<double>> &matrix, int m, int n, int i,
                 int j) {
-  // ������� ��������� ������ >= i c ��������� ��������� � ������ ������� j
-  // ��������� ��������� ������,����� �����, ����� ��������, ������ i-��,
-  // ������� j-��
+  // func returns row with number >=i with not-zero element in col j
+  //get matrix, numbers of rows, col and i-row and j-col
   for (int l = i; l < m; l++) {
     if (matrix[l][j] != 0) {
       return l;
     }
   }
   return -1;
-  // �� ������� ������ >= i � ��������� ��������� � ������ ������� j
+  // not found row with number >= i with non-zero element in col j
 }
 
 void swipe_string(std::vector<std::vector<double>> &matrix, int m, int n, int k,
                   int l) {
-  // ������� ������ ������ l � � �������
-  // ��������� ������ �� �������, ����� ����� , ����� ��������, k -�� ������,
-  // l-�� ������
+  // func changes rows l and k
   for (int j = 0; j < n; j++) {
     std::swap(matrix[l][j], matrix[k][j]);
   }
   if (l != k) {
-    std::cout << "�������� ������ �������" << std::endl;
+    std::cout << "Change rows" << std::endl;
     print_matrix(matrix, m, n);
   }
 }
 void subtraction_strings(std::vector<std::vector<double>> &matrix, int m, int n,
                          int k, int l, int j) {
-  // �������, ������� �������� �� �-�� ������ l -�� ������� �� ������� j, ���
-  // ����� � j -�� ������� � �-�� ������ ��� ������� 0 ��������� ������
-  // ���������
+  // a function that subtracts from the K-th row the l-th starting from column j, so that
+  // in the j-th column in the K-th row was the element 0
+  // accepts a two-dimensional reference
   double multiplier = matrix[k][j] / matrix[l][j];
   for (int f = j; f < n; f++) {
     matrix[k][f] = matrix[k][f] - matrix[l][f] * multiplier;
   }
-  std::cout << "���������� ��������� �����" << std::endl;
+  std::cout << "substract rows" << std::endl;
   print_matrix(matrix, m, n);
 }
 std::vector<std::vector<double>> step_matrix(std::vector<std::vector<double>> matrix, int m, int n) {
-  // ���������� �������, ����������� � ������������ ����
-  // ��������� ������� , ����� ����� ,����� ��������
+  // function returns a step matrix
+  // get matrix, numbers of rows and col
   int l;
   int i = 0;
 
@@ -115,13 +110,13 @@ std::vector<std::vector<double>> step_matrix(std::vector<std::vector<double>> ma
   return matrix;
 }
 int rang_matrix(const std::vector<std::vector<double>> &matrix, int m, int n) {
-  // c������ ���� , ������� , ������ ��� ���� ����� �������� �����
-  // � �������� ��������� ������ ���� ����������� �������!!!!!
-  // ��������� ������� , ����� �����, ����� ��������
+  // counts the rank of the matrix, while counting the number of non-zero rows
+  // the argument must be a step matrix!!!!!
+  // accepts a matrix, the number of rows, and the number of columns
   int k = 0;
-  // ������� ��������� ��������� � ������
+  // counter non-zero in row
   int rang = 0;
-  // ������� ����� �� ������� �����
+  // count number of non-zero row
 
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
@@ -133,14 +128,14 @@ int rang_matrix(const std::vector<std::vector<double>> &matrix, int m, int n) {
       rang++;
     }
     k = 0;
-    // �������� �������
+    // zero counter
   }
   return rang;
 }
 bool check_det(const std::vector<std::vector<double>> &matrix, int m, int n) {
-  // ���������� 1 - ��� - ���� ��������� ������������ � ������
-  // ���������� 0 - ���� - ���� �� ���������� ������������ � �������
-  // ��������� ��������� ������, ����� ����� , ����� ��������
+  // returns 1-true - if there is a determinant for the matrix 
+  // returns 0-false - if there is no determinant for the matrix 
+  // accepts a two-dimensional vector, number of rows , number of columns
   if (m == n) {
     return 1;
   }
@@ -148,32 +143,32 @@ bool check_det(const std::vector<std::vector<double>> &matrix, int m, int n) {
   return 0;
 }
 double det_matrix(const std::vector<std::vector<double>> &matrix, int m, int n) {
-  // c������ ������������ ������� , ������ ������������ ��������� �� ���������
-  // � �������� ��������� ������ ���� ����������� �������!!!!!
-  // ��������� ������� , ����� �����, ����� ��������
+  // calculates Slough solutions using the Kramer method
+  // accepts a two-dimensional vector (which consists of the Slough coef + free terms) 
+  // a vector consisting of variable names, the number of matrix rows , and the number of matrix columns
+  // returns a vector string of solutions
   double p = 1;
   for (int i = 0; i < n; i++) {
     p = p * matrix[i][i];
   }
   return p;
 }
-vector<double> Kramer(const vector<vector<double>> &matrix, vector<char> name, int m,
+std::vector<double> Kramer(const std::vector<std::vector<double>> &matrix, std::vector<char> name, int m,
                       int n) {
-  // вычисляет решения слау методом крамером
-  // принимает двумерный вектор(который состоит из коэф слау + свободных членов)
-  // вектор состоящий из названий переменных, число строк матрицы , число
-  // столбцов матрицы вовзращает вектор строку решений
-
-  vector<double> solutions;
+  // calculates Slough solutions using the Kramer method
+  // accepts a two-dimensional vector (which consists of the Slough coef + free terms)
+  // a vector consisting of variable names, the number of matrix rows , and the number of matrix columns
+  // returns a vector string of solutions
+  std::vector<double> solutions;
   if (!(check_det(matrix, m, n - 1))) {
-    cout << "Ошибка нельзя посчитать методом крамера";
+    std::cout << "impossible to count by Kramer method";
   } else {
-    vector<vector<double>> temp;
-    vector<vector<double>> time;
+    std::vector<std::vector<double>> temp;
+    std::vector<std::vector<double>> time;
     temp = delete_last_column(matrix, m, n);
-    cout << "Привдем главную матрицу к ступенчатому виду, чтобы посчитать "
-            "определитель"
-         << endl;
+    std::cout << "We reduce the main matrix to a stepwise form to calculate "
+            "determinant"
+         << std::endl;
     temp = step_matrix(temp, m, n - 1);
     double det_general = det_matrix(temp, m, n - 1);
     double det;
@@ -181,27 +176,27 @@ vector<double> Kramer(const vector<vector<double>> &matrix, vector<char> name, i
       for (int i = 0; i < m; i++) {
         time = swipe_column(matrix, m, n, i, n - 1);
         time = delete_last_column(time, m, n);
-        cout << "Привдем матрицу переменной " << name[i]
-             << " к ступенчатому виду, чтобы посчитать определитель" << endl;
+        std::cout << "Here is the matrix of the variable " << name[i]
+<< "to a stepwise view to calculate the determinant" << std::endl;
         time = step_matrix(time, m, n - 1);
         det = det_matrix(time, m, n - 1);
         if (i == m - 1) {
-          cout << name[i] << "=" << det / det_general;
+          std::cout << name[i] << "=" << det / det_general;
           solutions.push_back(det / det_general);
 
         } else {
-          cout << name[i] << "=" << det / det_general << endl;
+          std::cout << name[i] << "=" << det / det_general << std::endl;
           solutions.push_back(det / det_general);
         }
       }
     } else {
       int alldeterminat = 0;
-      // число нулевых детерминатов
+      // number of nonzero determinants
       for (int i = 0; i < m; i++) {
         time = swipe_column(matrix, m, n, i, n - 1);
         time = delete_last_column(time, m, n);
-        cout << "Привдем матрицу переменной " << name[i]
-             << " к ступенчатому виду, чтобы посчитать определитель" << endl;
+        std::cout << "Here is the matrix of the variable " << name[i]
+<< "to a stepwise view to calculate the determinant" << std::endl;
         time = step_matrix(time, m, n - 1);
         det = det_matrix(time, m, n - 1);
         if (det == 0) {
@@ -209,12 +204,12 @@ vector<double> Kramer(const vector<vector<double>> &matrix, vector<char> name, i
         }
       }
       if (alldeterminat == m) {
-        cout << "система линейных уравнений имеет бесчисленное множество "
-                "решений";
+        std::cout << "the system of linear equations has innumerable sets "
+                "decisions";
         solutions.push_back(0);
       }
       if (alldeterminat == 0) {
-        cout << "система линейных уравнений решений не имеет";
+        std::cout << "SLAE haven't solutions";
         solutions.push_back(-1);
       }
     }
@@ -222,22 +217,21 @@ vector<double> Kramer(const vector<vector<double>> &matrix, vector<char> name, i
   return solutions;
 }
 
-string initilization() {
-  // создает текстовый файл, в котором хранится текст с картинки
-  // возвращает название текстового файла
-  string pathImage;
+std::string initilization() {
+  // creates a text file that stores text from an image
+  // returns the name of the text file
+  std::string pathImage;
   getline(std::cin, pathImage);
   tesseract::TessBaseAPI tessApi;
   tessApi.Init(NULL, "eng");
   const char *pathImage_char = pathImage.c_str();
-  PIX *pix = pixRead(pathImage_char); // считываем картинку из файла с именем,
-  // переданным первым аргументом, это функционал Leptonica
-  tessApi.SetImage(
-      pix); // говорим tesseract, что распознавать нужно эту картинку
-  char *text = tessApi.GetUTF8Text(); //распознаём
-  string text_string = string(text);
-  //генерируем имя файла в который будет записан распознанный текст
-  string fileName = "";
+  PIX *pix = pixRead(pathImage_char); // reading an image from a file with the name,
+// passed the first argument, this is The leptonica functionality
+  tessApi.SetImage(pix); // we say tesseract that he should found this picture
+  char *text = tessApi.GetUTF8Text(); // we recognize
+  std::string text_string = std::string(text);
+  // generating the name of the file where the recognized text will be written
+  std::string fileName = "";
   long prefixLength;
   int last = pathImage.find('.');
   fileName = pathImage.substr(0, last);
@@ -252,13 +246,13 @@ string initilization() {
   fileName = fileName.substr(0, position);
   reverse(begin(fileName), end(fileName));
   fileName = fileName + ".txt\0";
-  ofstream ofs;
-  ofs.open(fileName, ios::out);
+  std::ofstream ofs;
+  ofs.open(fileName, std::ios::out);
   ofs.close();
-  ofstream fs;
-  fs.open(fileName, ios::out);
+  std::ofstream fs;
+  fs.open(fileName, std::ios::out);
   if (!fs.is_open()) {
-    cout << "Ошибка открытия" << fileName;
+    std::cout << "mistake of opening" << fileName;
   } else {
     fs << text_string << "\n";
   }

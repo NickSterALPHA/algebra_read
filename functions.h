@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-using namespace std;
 
 std::vector<std::vector <double>> swipe_column(std::vector<std::vector <double>> matrix, int m, int n, int k, int l);
 
